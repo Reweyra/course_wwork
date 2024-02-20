@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+from utils.function import account_format
 
 
 class Transaction:
@@ -20,33 +21,12 @@ class Transaction:
         formatted_date = date_obj.strftime("%d.%m.%Y")
 
         if self.from_account is not None:
-            """
-            С помощью регулярного выражение разделил строку на числа и буквы, счета отправителя
-            """
-            search_card_name = re.findall(r'[a-zA-Zа-яА-Я]+', self.from_account)
-            card_name = ''.join(search_card_name)
-            card_name = re.sub(r'([a-z])([A-Z0-9])', r'\1 \2', card_name)
-            search_card_number = re.search(r"\d+", self.from_account).group()
-            card_number = ''.join(search_card_number)
-            formatted_card_number = card_name + " " + card_number[:4] + " " + card_number[
-                                                                              4:6] + "** **** " + card_number[-4:]
+            formatted_card_number = account_format(self.from_account)
         else:
             formatted_card_number = "Открытие счета"
 
         if self.to_account is not None:
-            """
-            С помощью регулярного выражение разделил строку на числа и буквы, счета получателя
-            """
-            search_account_name = re.findall(r'[a-zA-Zа-яА-Я]+', self.to_account)
-            account_name = ''.join(search_account_name)
-            account_name = re.sub(r'([a-z])([A-Z0-9])', r'\1 \2', account_name)
-            search_account_number = re.search(r"\d+", self.to_account).group()
-            account_number = ''.join(search_account_number)
-
-            if account_name == "Счет":
-                formatted_account_number = account_name + " " + "**" + account_number[-4:]
-            else:
-                formatted_account_number = account_name + " " + search_account_number[:4] + " " + search_account_number[4:6] + "** **** " + search_account_number[-4:]
+            formatted_account_number = account_format(self.to_account)
         else:
             formatted_account_number = "Открытие счета"
 

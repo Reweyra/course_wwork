@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from function import transaction_filter
 
 from model.transaction import Transaction
 
@@ -23,14 +23,7 @@ for operation_data in data:
                               )
     transactions.append(transaction)
 
-"""
-Отфильтровал только те операции которые прошли успешно
-"""
-executed_transactions = [transaction for transaction in transactions if transaction.state == "EXECUTED"]
-sorted_transactions = sorted(executed_transactions, key=lambda x: datetime.strptime(x.date, "%Y-%m-%dT%H:%M:%S.%f"),
-                             reverse=True)
-
-last_executed_operations = sorted_transactions[:5]
+last_executed_operations = transaction_filter(transactions)
 
 for transaction in last_executed_operations:
     print(transaction)
