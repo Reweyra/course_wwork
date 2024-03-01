@@ -2,7 +2,7 @@
 name = "course-work-3"
 version = "0.1.0"
 description = ""
-authors = ["Arkadiy <agongadze8@gmail.com>"]
+authors = ["Ramazan <ramazan.dadaev@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
